@@ -1,6 +1,9 @@
-import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
-import 'package:ditonton/presentation/pages/tv/watchlist_tv_page.dart';
+import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/bloc/system/system_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
+import 'package:tv/presentation/page/watchlist_tv_page.dart';
 
 class WatchListPage extends StatefulWidget {
   @override
@@ -21,6 +24,16 @@ class _WatchListPageState extends State<WatchListPage>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+  }
+
+  void actionRedirectMovieWatchlist() {
+    BlocProvider.of<SystemBloc>(context, listen: false)
+        ..add(SetActiveMenu(MenuState.Movie));
+  }
+
+  void actionRedirectTvWatchlist() {
+    BlocProvider.of<SystemBloc>(context, listen: false)
+        ..add(SetActiveMenu(MenuState.Tv));
   }
 
   @override
@@ -47,8 +60,12 @@ class _WatchListPageState extends State<WatchListPage>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  WatchlistMoviesPage(),
-                  WatchlistTvSeriesPage()
+                  WatchlistMoviesPage(
+                    actionRedirectMovieWatchlist
+                  ),
+                  WatchlistTvSeriesPage(
+                    actionRedirectTvWatchlist
+                  )
                 ],
               ),
             ),

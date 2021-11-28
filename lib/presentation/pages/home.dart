@@ -1,14 +1,15 @@
+import 'package:about/about_page.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/pages/movie/search_page.dart';
-import 'package:ditonton/presentation/pages/tv/search_page.dart';
-import 'package:ditonton/presentation/pages/tv/tv_series_page.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:movie/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_home_page.dart';
-import 'package:ditonton/presentation/provider/system_notifier.dart';
+import 'package:ditonton/presentation/bloc/system/system_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
-import 'about_page.dart';
-import 'movie/movies_page.dart';
+import 'package:movie/presentation/pages/movies_page.dart';
+import 'package:tv/presentation/page/search_page.dart';
+import 'package:tv/presentation/page/tv_series_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,12 +18,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      BlocProvider.of<SystemBloc>(context, listen: false)
+        ..add(SetActiveMenu(MenuState.Movie));
+     
+    });
+  }
+
   List<Widget> _buildAppbarAction(MenuState _state) {
     switch (_state) {
       case MenuState.Movie:
         return [
           IconButton(
             onPressed: () {
+              FirebaseCrashlytics.instance.crash();
               Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
             },
             icon: Icon(Icons.search),
@@ -71,67 +83,71 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SystemNotifier>(builder: (context, data, child) {
-      return Scaffold(
-          drawer: Drawer(
-            child: Column(
-              children: [
-                UserAccountsDrawerHeader(
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage('assets/circle-g.png'),
+    return BlocBuilder<SystemBloc, SystemState>(
+       builder: (context, state) {
+         if(state is SelectedMenuState) {
+           return Scaffold(
+            drawer: Drawer(
+              child: Column(
+                children: [
+                  UserAccountsDrawerHeader(
+                    currentAccountPicture: CircleAvatar(
+                      backgroundImage: AssetImage('assets/circle-g.png'),
+                    ),
+                    accountName: Text('Ditonton'),
+                    accountEmail: Text('ditonton@dicoding.com'),
                   ),
-                  accountName: Text('Ditonton'),
-                  accountEmail: Text('ditonton@dicoding.com'),
-                ),
-                ListTile(
-                  selected: data.menuState == MenuState.Movie,
-                  selectedTileColor: Colors.grey,
-                  leading: Icon(Icons.movie),
-                  title: Text('Movies'),
-                  onTap: () {
-                    data.setMenuState(MenuState.Movie);
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  selected: data.menuState == MenuState.Tv,
-                  selectedTileColor: Colors.grey,
-                  leading: Icon(Icons.tv),
-                  title: Text('Tv Series'),
-                  onTap: () {
-                    data.setMenuState(MenuState.Tv);
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  selected: data.menuState == MenuState.WatchList,
-                  selectedTileColor: Colors.grey,
-                  leading: Icon(Icons.save_alt),
-                  title: Text('Watchlist'),
-                  onTap: () {
-                    data.setMenuState(MenuState.WatchList);
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  selected: data.menuState == MenuState.About,
-                  selectedTileColor: Colors.grey,
-                  onTap: () {
-                    data.setMenuState(MenuState.About);
-                    Navigator.pop(context);
-                  },
-                  leading: Icon(Icons.info_outline),
-                  title: Text('About'),
-                ),
-              ],
+                  ListTile(
+                    selected: state.menuState == MenuState.Movie,
+                    selectedTileColor: Colors.grey,
+                    leading: Icon(Icons.movie),
+                    title: Text('Movies'),
+                    onTap: () {
+                      context.read<SystemBloc>().add(SetActiveMenu(MenuState.Movie));
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    selected: state.menuState == MenuState.Tv,
+                    selectedTileColor: Colors.grey,
+                    leading: Icon(Icons.tv),
+                    title: Text('Tv Series'),
+                    onTap: () {
+                      context.read<SystemBloc>().add(SetActiveMenu(MenuState.Tv));
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    selected: state.menuState == MenuState.WatchList ,
+                    selectedTileColor: Colors.grey,
+                    leading: Icon(Icons.save_alt),
+                    title: Text('Watchlist'),
+                    onTap: () {
+                      context.read<SystemBloc>().add(SetActiveMenu(MenuState.WatchList));
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    selected: state.menuState == MenuState.About,
+                    selectedTileColor: Colors.grey,
+                    onTap: () {
+                      context.read<SystemBloc>().add(SetActiveMenu(MenuState.About));
+                      Navigator.pop(context);
+                    },
+                    leading: Icon(Icons.info_outline),
+                    title: Text('About'),
+                  ),
+                ],
+              ),
             ),
-          ),
-          appBar: AppBar(
-            title: Text(_getTitle(data.menuState)),
-            actions: _buildAppbarAction(data.menuState)
-          ),
-          body: _buildBody(data.menuState),
-        );
+            appBar: AppBar(
+              title: Text(_getTitle(state.menuState)),
+              actions: _buildAppbarAction(state.menuState)
+            ),
+            body: _buildBody(state.menuState),
+          );
+        }
+        return Container();
       },
     );
   }
