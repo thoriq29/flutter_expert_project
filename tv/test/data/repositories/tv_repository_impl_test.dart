@@ -13,7 +13,7 @@ import 'package:tv/data/models/tv_season_model.dart';
 import 'package:tv/data/repositories/tv_repository_impl.dart';
 import 'package:tv/domain/entities/tv.dart';
 
-import '../../dummyData/dummy_objects.dart';
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {

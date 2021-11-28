@@ -7,7 +7,7 @@ import 'package:tv/common/failure.dart';
 import 'package:tv/domain/usecases/tv/get_tv_recommendations.dart';
 import 'package:tv/presentation/bloc/tv_recommendations_bloc.dart';
 
-import '../dummyData/dummy_objects.dart';
+import '../dummy_data/dummy_objects.dart';
 import 'recommendation_bloc_test.mocks.dart';
 
 @GenerateMocks([GetTvRecommendations])

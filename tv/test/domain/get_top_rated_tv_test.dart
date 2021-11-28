@@ -3,7 +3,7 @@ import 'package:tv/domain/usecases/tv/get_top_rated_tv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../dummyData/dummy_objects.dart';
+import '../dummy_data/dummy_objects.dart';
 import '../helpers/test_helper.mocks.dart';
 
 void main() {

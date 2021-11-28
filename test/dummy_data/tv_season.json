@@ -1,0 +1,53 @@
+{
+    "_id":"5d753a082ea6b90010bff496",
+    "air_date":"2021-09-17",
+    "episodes":[
+       {
+          "air_date":"2021-09-17",
+          "episode_number":1,
+          "crew":[
+             {
+                "job":"Director",
+                "department":"Directing",
+                "credit_id":"5d753b612ea6b90012bffc83",
+                "adult":false,
+                "gender":2,
+                "id":1294471,
+                "known_for_department":"Directing",
+                "name":"Hwang Dong hyuk",
+                "original_name":"Hwang Dong hyuk",
+                "popularity":16.886,
+                "profile_path":"/xyr3b04ayyJtA5ZN3L0Af10WKIR.jpg"
+             }
+          ],
+          "guest_stars":[
+             {
+                "character":"Man at the station",
+                "credit_id":"61454f59daf57c002c8f43bd",
+                "order":2,
+                "adult":false,
+                "gender":2,
+                "id":150903,
+                "known_for_department":"Acting",
+                "name":"Gong Yoo",
+                "original_name":"Gong Yoo",
+                "popularity":16.565,
+                "profile_path":"/ocGoFb6TrK3uWGXt4WnuibUG1vD.jpg"
+             }
+          ],
+          "id":1922715,
+          "name":"Red Light, Green Light",
+          "overview":"overview",
+          "production_code":"",
+          "season_number":1,
+          "still_path":"/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg",
+          "vote_average":8.186,
+          "vote_count":43
+       }
+    ],
+    "name":"Season 1",
+    "overview":" overview",
+    "id":131977,
+    "poster_path":"/lDm3AjG0ZsPRAz1qHD0em8pzTTp.jpg",
+    "season_number":1
+ }

@@ -7,7 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tv/presentation/bloc/search/search_tv_bloc.dart';
 
-import '../dummyData/dummy_objects.dart';
+import '../dummy_data/dummy_objects.dart';
 import 'search_tv_bloc_test.mocks.dart';
 
 @GenerateMocks([SearchTV])

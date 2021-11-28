@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:tv/common/exception.dart';
 import 'package:tv/data/datasources/watchlist_data_source.dart';
 
-import '../../dummyData/dummy_objects.dart';
+import '../../dummy_data/dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
