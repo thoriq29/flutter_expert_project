@@ -1,6 +1,5 @@
 import 'package:about/about_page.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:movie/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_home_page.dart';
 import 'package:ditonton/presentation/bloc/system/system_bloc.dart';
@@ -34,7 +33,6 @@ class _HomePageState extends State<HomePage> {
         return [
           IconButton(
             onPressed: () {
-              FirebaseCrashlytics.instance.crash();
               Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
             },
             icon: Icon(Icons.search),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tv/common/router_observer.dart';
 import 'package:tv/presentation/bloc/watchlist_tv_page_bloc.dart';
 import 'package:tv/presentation/widget/card/tv_movie_card.dart';
 
@@ -11,29 +12,29 @@ class WatchlistTvSeriesPage extends StatefulWidget {
   _WatchlistTvPageState createState() => _WatchlistTvPageState();
 }
 
-class _WatchlistTvPageState extends State<WatchlistTvSeriesPage> with WidgetsBindingObserver {
+class _WatchlistTvPageState extends State<WatchlistTvSeriesPage> with RouteAware {
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
     Future.microtask(() =>
-        BlocProvider.of<TvWatchlistPageBloc>(context).add(FetchWatchlistTvSeries()));
+        BlocProvider.of<TvWatchlistPageBloc>(context, listen: false).add(FetchWatchlistTvSeries()));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserverTv.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  void didPopNext() {
+    BlocProvider.of<TvWatchlistPageBloc>(context, listen: false).add(FetchWatchlistTvSeries());
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    routeObserverTv.unsubscribe(this);
     super.dispose();
-  }
-  
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-       Future.microtask(() =>
-        BlocProvider.of<TvWatchlistPageBloc>(context).add(FetchWatchlistTvSeries()));
-    }
   }
 
   @override

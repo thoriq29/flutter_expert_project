@@ -29,6 +29,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -41,6 +43,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -53,6 +57,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -65,6 +71,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -77,6 +85,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -89,6 +99,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -137,6 +149,8 @@ class TvRepositoryImpl implements TvRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 }

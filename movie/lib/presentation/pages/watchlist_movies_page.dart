@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/common/router_observer.dart';
 import 'package:movie/presentation/bloc/detail/watchlist_movie_bloc.dart';
 import 'package:movie/presentation/widgets/card/tv_movie_card.dart';
 
@@ -12,12 +13,29 @@ class WatchlistMoviesPage extends StatefulWidget {
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
+class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAware {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        BlocProvider.of<WatchlistMovieBloc>(context).add(FetchWatchlistMovie()));
+        BlocProvider.of<WatchlistMovieBloc>(context, listen: false).add(FetchWatchlistMovie()));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserverMovie.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  void didPopNext() {
+    Future.microtask(() =>
+        BlocProvider.of<WatchlistMovieBloc>(context, listen: false).add(FetchWatchlistMovie()));
+  }
+
+  @override
+  void dispose() {
+    routeObserverMovie.unsubscribe(this);
+    super.dispose();
   }
 
   @override

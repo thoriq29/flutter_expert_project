@@ -24,12 +24,6 @@ class TvCard extends StatelessWidget {
           TvDetailPage.ROUTE_NAME,
           arguments: tv.id,
         );
-        
-        // .then((value) =>
-        //  Future.microtask(() =>
-        //   Provider.of<WatchlistTvNotifier>(context, listen: false)
-        //       .fetchWatchlistTvSeries()
-        // ));
       },
     );
   }

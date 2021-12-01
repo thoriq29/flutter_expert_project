@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:tv/common/router_observer.dart';
+import 'package:movie/common/router_observer.dart';
 import 'package:tv/presentation/bloc/now_playing_tv_bloc.dart';
 import 'package:tv/presentation/bloc/popular_tv_bloc.dart';
 import 'package:tv/presentation/bloc/search/search_tv_bloc.dart';
@@ -33,9 +35,12 @@ import 'package:tv/presentation/page/top_rated_tv_page.dart';
 import 'package:tv/presentation/page/tv_detail_page.dart';
 import 'package:tv/presentation/bloc/detail/tv_season_bloc.dart';
 
+import 'common/ssl_pinning.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SSLPinning.init();
   di.init();
   runApp(MyApp());
 }
@@ -110,6 +115,7 @@ class MyApp extends StatelessWidget {
           textTheme: kTextTheme,
         ),
         home: HomePage(),
+        navigatorObservers: [routeObserverTv, routeObserverMovie],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/home':

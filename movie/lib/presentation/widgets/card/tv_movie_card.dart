@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie/common/config.dart';
 import 'package:movie/common/styles.dart';
 import 'package:movie/domain/entities/movie.dart';
-import 'package:movie/presentation/bloc/detail/watchlist_movie_bloc.dart';
 import 'package:movie/presentation/pages/movie_detail_page.dart';
 
 
@@ -25,8 +23,6 @@ class MovieCard extends StatelessWidget {
           context,
           MovieDetailPage.ROUTE_NAME,
           arguments: movie.id,
-        ).then((value) => 
-          BlocProvider.of<WatchlistMovieBloc>(context).add(FetchWatchlistMovie())
         );
       },
     );

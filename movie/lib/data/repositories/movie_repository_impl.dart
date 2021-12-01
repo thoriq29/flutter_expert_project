@@ -10,6 +10,8 @@ import 'package:movie/domain/entities/movie.dart';
 import 'package:movie/domain/entities/movie_detail.dart';
 import 'package:movie/domain/repositories/movie_repository.dart';
 
+import '../../common/failure.dart';
+
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource remoteDataSource;
   final MovieWatchListDataSource localDataSource;
@@ -28,6 +30,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -40,6 +44,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -52,6 +58,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -64,6 +72,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -76,6 +86,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
@@ -88,6 +100,8 @@ class MovieRepositoryImpl implements MovieRepository {
       return Left(ServerFailure(''));
     } on SocketException {
       return Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure("Failed to connect the host"));
     }
   }
 
